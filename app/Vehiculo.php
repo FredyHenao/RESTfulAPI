@@ -13,10 +13,12 @@ class Vehiculo extends Model
         'cilindraje',
         'potencia',
         'peso',
+        'fabricante_id',
     ];
 
     public function fabricantes()
     {
+        //relacion de uno a uno un vehiculo tiene un fabricante
         $this->BelongsTo('Fabricante');
     }
 }
