@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Vehiculo extends Model
 {
-    protected $table = 'tb_vehiculo';
+    protected $table = 'tb_vehiculos';
     protected $primaryKey = 'serie';
     protected $fillable = [
         'color',
