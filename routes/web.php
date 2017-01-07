@@ -10,6 +10,6 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::resource('/', 'VehiculoController@showAll');
-Route::resource('fabricantes.vehiculos', 'VehiculoController');
+Route::resource('vehiculos', 'VehiculoController', ['only'=>['index','show']]);
+Route::resource('fabricantes.vehiculos', 'FabricanteVehiculoController', ['except'=>['show']]);
 Route::resource('fabricantes', 'FabricantesController');
