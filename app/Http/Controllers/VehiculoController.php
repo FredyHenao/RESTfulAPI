@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class VehiculoController extends Controller
 {
+    public function showAll()
+    {
+        return 'mostrando todos los vehiculos';
+    }
     /**
      * Display a listing of the resource.
      *

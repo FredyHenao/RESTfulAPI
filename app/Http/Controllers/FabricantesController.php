@@ -13,7 +13,7 @@ class FabricantesController extends Controller
      */
     public function index()
     {
-        //
+        return 'Mostrando todos los fabricantes';
     }
 
     /**
