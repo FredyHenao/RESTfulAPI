@@ -11,6 +11,7 @@ class Fabricante extends Model
       'nombre',
       'telefono',
     ];
+    protected $hidden = ['created_at','updated_at'];
 
     public function vehiculos()
     {
