@@ -3,13 +3,11 @@
 namespace Apis\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Apis\Vehiculo;
 
 class VehiculoController extends Controller
 {
-    public function showAll()
-    {
-        return 'mostrando todos los vehiculos';
-    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +15,7 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        //
+        return  response()->json(['datos' => Vehiculo::all()], 200);
     }
 
     /**
@@ -49,7 +47,11 @@ class VehiculoController extends Controller
      */
     public function show($id)
     {
-        //
+        $vehiculo = Vehiculo::find($id);
+        if (!$vehiculo) {
+            return response()->json(['mensaje'=>'No se encuentra el vehiculo'], 404);
+        }
+        return response()->json(['datos'=>$vehiculo], 200);
     }
 
     /**

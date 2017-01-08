@@ -16,6 +16,6 @@ class Fabricante extends Model
     public function vehiculos()
     {
         //relacion de uno a muchos un fabricante tiene muchos vehiculos
-        $this->HasMany('Vehiculo');
+      return  $this->HasMany('Apis\Vehiculo');
     }
 }

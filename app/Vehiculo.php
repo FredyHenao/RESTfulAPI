@@ -15,10 +15,11 @@ class Vehiculo extends Model
         'peso',
         'fabricante_id',
     ];
+    protected $hidden = ['created_at','updated_at'];
 
     public function fabricantes()
     {
         //relacion de uno a uno un vehiculo tiene un fabricante
-        $this->BelongsTo('Fabricante');
+      return  $this->BelongsTo('Apis\Fabricante');
     }
 }
