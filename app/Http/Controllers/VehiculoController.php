@@ -8,6 +8,7 @@ use Apis\Vehiculo;
 class VehiculoController extends Controller
 {
     
+
     /**
      * Display a listing of the resource.
      *
