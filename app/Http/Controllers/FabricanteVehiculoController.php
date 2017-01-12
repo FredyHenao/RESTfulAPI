@@ -10,7 +10,7 @@ class FabricanteVehiculoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth.basic');
+        $this->middleware('auth.basic', ['only'=>['store','update','destroy']]);
     }
     /**
      * Display a listing of the resource.
@@ -42,9 +42,23 @@ class FabricanteVehiculoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //
+        if (!$request->color || !$request->cilindraje || !$request->potencia || !$request->peso) {
+            return response()->json(['mensaje'=>'No se pudieron procesar los valores'], 422);
+        }
+        $fabricante = Fabricante::find($id);
+        if (!$fabricante) {
+            return response()->json(['mensaje'=>'No existe el fabricante asociado'], 404);
+        }
+        $vehiculos = new Vehiculo();
+        $vehiculos->color = $request->color;
+        $vehiculos->cilindraje = $request->cilindraje;
+        $vehiculos->potencia = $request->potencia;
+        $vehiculos->peso = $request->peso;
+        $vehiculos->fabricante_id = $request->fabricante_id;
+        $fabricante->vehiculos()->save($vehiculos);
+        return response()->json(['mensaje'=>'Vehiculo insertado'], 201);
     }
 
     /**

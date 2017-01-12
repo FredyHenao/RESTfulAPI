@@ -39,7 +39,16 @@ class FabricantesController extends Controller
      */
     public function store(Request $request)
     {
-        return 'peticion recibida';
+        if (!$request->nombre || !$request->telefono) {
+            return response()->json(['mensaje'=>'No se pudieron procesar los valores'], 422);
+        }
+        $datos = new Fabricante;
+        $datos->nombre= $request->nombre;
+        $datos->telefono= $request->telefono;
+        $datos->save();
+        //Fabricante::all($request->all());
+        //Fabricante::save();
+        return response()->json(['mensaje'=>'Fabricante insertado'], 201);
     }
 
     /**
