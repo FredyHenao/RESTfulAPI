@@ -92,16 +92,22 @@ class FabricantesController extends Controller
             return response()->json(['mensaje'=>'No se encuentra el fabricante'], 404);
         }
         if ($metodo === 'PATCH') {
+            $bandera = false;
             $nombre = $request->nombre;
             if ($nombre != null && $nombre != '') {
                 $fabricante->nombre = $nombre;
+                $bandera = true;
             }
             $telefono = $request->telefono;
             if ($telefono != null && $telefono != '') {
                 $fabricante->telefono = $telefono;
+                $bandera = true;
             }
-            $fabricante->save();
-            return response()->json(['mensaje'=>'Fabricante editado'], 200);
+            if ($bandera) {
+                $fabricante->save();
+                return response()->json(['mensaje'=>'Fabricante editado'], 200);
+            }
+            return response()->json(['mensaje'=>'No se Modifico ningun fabricante'], 200);
         }
         $nombre = $request->nombre;
         $telefono = $request->telefono;

@@ -90,9 +90,58 @@ class FabricanteVehiculoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idFabricante, $idVehiculo)
     {
-        //
+        $metodo = $request->method();
+        $fabricante = Fabricante::find($idFabricante);
+        if (!$fabricante) {
+            return response()->json(['mensaje'=>'No se encuentra el fabricante'], 404);
+        }
+        $vehiculo = $fabricante->vehiculos()->find($idVehiculo);
+        if (!$vehiculo) {
+            return response()->json(['mensaje'=>'No se encuentra el vehiculo asociado al fabricante'], 404);
+        }
+        $color = $request->color;
+        $cilindraje = $request->cilindraje;
+        $potencia = $request->potencia;
+        $peso = $request->peso;
+
+        if ($metodo === 'PATCH') {
+            $bandera = false;
+            if ($color != null && $color != '') {
+                $vehiculo->color = $color;
+                $bandera = true;
+            }
+            if ($cilindraje != null && $cilindraje != '') {
+                $vehiculo->cilindraje = $cilindraje;
+                $bandera = true;
+            }
+            if ($potencia != null && $potencia != '') {
+                $vehiculo->potencia = $potencia;
+                $bandera = true;
+            }
+            if ($peso != null && $peso != '') {
+                $vehiculo->peso = $peso;
+                $bandera = true;
+            }
+            if ($bandera) {
+                $vehiculo->save();
+                return response()->json(['mensaje'=>'Vehiculo editado'], 200);
+            }
+            return response()->json(['mensaje'=>'No se Modifico ningun vehiculo'], 200);
+        }
+
+        if (!$color || !$cilindraje || !$potencia || !$peso) {
+            return response()->json(['mensaje'=>'No se pudieron procesar los valores'], 422);
+        }
+        $vehiculo->color = $color;
+        $vehiculo->cilindraje = $cilindraje;
+        $vehiculo->potencia = $potencia;
+        $vehiculo->peso = $peso;
+        $vehiculo->save();
+      //el metodo patch modifica los campos que quiera
+      //el metodo put modifica todos los campos
+      return response()->json(['mensaje'=>'Vehiculo editado'], 200);
     }
 
     /**
