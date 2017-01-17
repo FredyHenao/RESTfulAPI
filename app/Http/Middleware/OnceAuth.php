@@ -3,6 +3,7 @@
 namespace Apis\Http\Middleware;
 
 use Closure;
+use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
 class OnceAuth
 {
@@ -35,6 +36,10 @@ class OnceAuth
    */
   public function handle($request, Closure $next, $guard = null)
   {
-      return $this->auth->guard($guard)->onceBasic() ?: $next($request);
+      $fallo = $this->auth->guard($guard)->onceBasic();
+      if ($fallo) {
+          return response()->json(['mensaje'=>'Se debe estar autenticado para esta peticion'], 401);
+      }
+      return $next($request);
   }
 }
