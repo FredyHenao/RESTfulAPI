@@ -22,7 +22,7 @@ class VehiculoTableSeeder extends Seeder
             $vehiculo->color = $faker->safeColorName();
             $vehiculo->cilindraje = $faker->randomFloat(3);
             $vehiculo->potencia = $faker->randomNumber(7);
-            $vehiculo->peso = $faker->randomFloat(3);
+            $vehiculo->peso = $faker->randomFloat(2);
             $vehiculo->fabricante_id = $faker->numberBetween(1, $cantidad);
             $vehiculo->save();
         }
