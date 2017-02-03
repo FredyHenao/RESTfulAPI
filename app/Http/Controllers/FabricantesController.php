@@ -4,6 +4,7 @@ namespace Apis\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Apis\Fabricante;
+use Illuminate\Support\Facades\Cache;
 
 class FabricantesController extends Controller
 {
@@ -18,7 +19,10 @@ class FabricantesController extends Controller
      */
     public function index()
     {
-        return  response()->json(['datos' => Fabricante::all()], 200);
+        $fabricantes= Cache::remember('tb_fabricantes', 30/60, function () {
+            return Fabricante::simplePaginate(15);
+        });
+        return  response()->json(['siguiente'=>$fabricantes->nextPageUrl(),'anterior'=>$fabricantes->previousPageUrl(),'datos' => $fabricantes], 200);
     }
 
     /**

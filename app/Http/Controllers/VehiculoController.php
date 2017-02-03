@@ -16,7 +16,8 @@ class VehiculoController extends Controller
      */
     public function index()
     {
-        return  response()->json(['datos' => Vehiculo::all()], 200);
+        $vehiculos =Vehiculo::simplePaginate(15);
+        return  response()->json(['siguiente'=>$vehiculos->nextPageUrl(),'anterior'=>$vehiculos->previousPageUrl(),'datos' => $vehiculos], 200);
     }
 
     /**

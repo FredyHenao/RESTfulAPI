@@ -14,15 +14,14 @@ class VehiculoTableSeeder extends Seeder
      */
     public function run()
     {
-        $vehiculo = new Vehiculo;
-        $faker = Faker::create();
-        $cantidad = Fabricante::all()->count();
-
-        for ($i=0;$i<50;$i++) {
+        for ($i=0;$i<500;$i++) {
+            $vehiculo = new Vehiculo;
+            $faker = Faker::create();
+            $cantidad = Fabricante::all()->count();
             $vehiculo->color = $faker->safeColorName();
-            $vehiculo->cilindraje = $faker->randomFloat(3);
+            $vehiculo->cilindraje = 30;
             $vehiculo->potencia = $faker->randomNumber(7);
-            $vehiculo->peso = $faker->randomFloat(2);
+            $vehiculo->peso = 20;
             $vehiculo->fabricante_id = $faker->numberBetween(1, $cantidad);
             $vehiculo->save();
         }

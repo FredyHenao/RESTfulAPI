@@ -13,10 +13,9 @@ class FabricanteTableSeeder extends Seeder
      */
     public function run()
     {
-        $fabricante = new Fabricante;
-        $faker = Faker::create();
-
-        for ($i=0;$i<3;$i++) {
+        for ($i=0;$i<100;$i++) {
+            $fabricante = new Fabricante;
+            $faker = Faker::create();
             $fabricante->nombre = $faker->firstNameMale();
             $fabricante->telefono = $faker->randomNumber(7);
             $fabricante->save();
